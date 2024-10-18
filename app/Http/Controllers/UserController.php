@@ -46,8 +46,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
+        // Check if user can access the resource
+        if( $request->user()->id !== $user->id && $request->user()->role !== 'sysadmin' ) {
+            return response([
+                'result' => false
+            ], 403);
+        }
+        // Return User
         return response()->json([
             'user' => $user
         ]);
