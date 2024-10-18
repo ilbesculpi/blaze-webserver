@@ -17,9 +17,9 @@ class SystemUserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => Str::ulid(),
             'name' => 'System Admin',
-            'email' => 'system@localhost',
+            'email' => 'sysadmin@localhost',
             'password' => Hash::make('adminadmin%'),
-            'role' => 'admin',
+            'role' => 'sysadmin',
         ]);
     }
 }
