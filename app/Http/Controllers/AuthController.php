@@ -18,7 +18,7 @@ class AuthController extends Controller
         if( Auth::attempt($credentials) ) {
             $user = Auth::user();
             // issue an access token
-            $access_token = $user->createToken('app');
+            $access_token = $user->createToken($user->role);
             return response()->json([
                 'user' => Auth::user(),
                 'access_token' => $access_token->plainTextToken,
