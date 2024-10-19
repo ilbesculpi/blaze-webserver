@@ -17,8 +17,3 @@ Route::get('/info', function(Request $request) {
 Route::get('/me', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
-// Route::apiResource('users', UserController::class)
-//     ->middleware('auth:sanctum');
-
-// Route::post('/auth/token', [AuthController::class, 'token']);

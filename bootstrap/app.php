@@ -8,6 +8,17 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Http\Request;
 
+if( !function_exists('registerApiDomainRoutes') ) {
+    function registerApiDomainRoutes(string $domain, string $name, ?string $path = null)
+    {
+        $apiRoute = $path ? $path : "app/Domain/$domain/Http/Routes/Api.php";
+        return Route::middleware('api')
+            ->prefix('api')
+            ->name($name)
+            ->group(base_path($apiRoute));
+    }
+}
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -15,10 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function() {
-            Route::middleware('api')
-                ->prefix('api')
-                ->name('users')
-                ->group(base_path('app/Domain/Users/Http/Routes/Api.php'));
+            registerApiDomainRoutes('Auth', 'auth');
+            registerApiDomainRoutes('Users', 'users');
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
