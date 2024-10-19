@@ -18,7 +18,8 @@ class AuthController extends Controller
         if( Auth::attempt($credentials) ) {
             $user = Auth::user();
             // issue an access token
-            $access_token = $user->createToken($user->role);
+            $abilities = $user->role === 'sysadmin' ? ['*'] : [$user->role];
+            $access_token = $user->createToken($user->role, $user->getTokenAbilities());
             return response()->json([
                 'user' => Auth::user(),
                 'access_token' => $access_token->plainTextToken,
@@ -26,6 +27,7 @@ class AuthController extends Controller
         }
         return response()->json([
             'result' => false,
+            'message' => 'Invalid credentials',
         ]);
     }
 }

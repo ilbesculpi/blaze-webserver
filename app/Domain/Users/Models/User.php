@@ -48,4 +48,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getTokenAbilities() : array {
+        switch( $this->role ) {
+            case 'sysadmin':
+                return ['*'];
+            case 'tester':
+                return ['tests'];
+            case 'admin-edificio':
+                return ['admin-edificio'];
+            case 'residente':
+                return ['residente'];
+        }
+        return [''];
+    }
+
 }

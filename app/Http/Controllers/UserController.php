@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Users\Models\User;
+use App\Infraestructure\Laravel\Exceptions\NotAuthorizedException;
+use App\Infraestructure\Laravel\Exceptions\NotImplementedException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Nette\NotImplementedException;
 
 class UserController extends Controller
 {
@@ -24,6 +25,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if( !$request->user()->tokenCan('create_users') ) {
+            throw new NotAuthorizedException();
+        }
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
