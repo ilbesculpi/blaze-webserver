@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Domain\Users\Http\Controllers\Api;
 
 use App\Domain\Users\Models\User;
+use App\Infraestructure\Laravel\Controllers\ApiController;
 use App\Infraestructure\Laravel\Exceptions\NotAuthorizedException;
 use App\Infraestructure\Laravel\Exceptions\NotImplementedException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
 
     /**
