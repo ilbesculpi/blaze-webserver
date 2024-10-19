@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\UserController;
 
 Route::get('/info', function(Request $request) {
     return response()->json([
@@ -14,11 +14,6 @@ Route::get('/info', function(Request $request) {
     ]);
 });
 
-Route::get('/user', function (Request $request) {
+Route::get('/me', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
-Route::apiResource('users', UserController::class)
-    ->middleware('auth:sanctum');
-
-Route::post('/auth/token', [AuthController::class, 'token']);

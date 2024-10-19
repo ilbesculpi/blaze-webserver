@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,4 +48,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getTokenAbilities() : array {
+        switch( $this->role ) {
+            case 'sysadmin':
+                return ['*'];
+            case 'tester':
+                return ['tests'];
+            case 'admin-edificio':
+                return ['admin-edificio'];
+            case 'residente':
+                return ['residente'];
+        }
+        return [''];
+    }
+
 }

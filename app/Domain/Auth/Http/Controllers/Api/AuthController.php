@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Domain\Auth\Http\Controllers\Api;
 
+use App\Infraestructure\Laravel\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
 
     public function token(Request $request)
@@ -18,7 +19,8 @@ class AuthController extends Controller
         if( Auth::attempt($credentials) ) {
             $user = Auth::user();
             // issue an access token
-            $access_token = $user->createToken($user->role);
+            $abilities = $user->role === 'sysadmin' ? ['*'] : [$user->role];
+            $access_token = $user->createToken($user->role, $user->getTokenAbilities());
             return response()->json([
                 'user' => Auth::user(),
                 'access_token' => $access_token->plainTextToken,
@@ -26,6 +28,7 @@ class AuthController extends Controller
         }
         return response()->json([
             'result' => false,
+            'message' => 'Invalid credentials',
         ]);
     }
 }

@@ -1,12 +1,23 @@
 <?php
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Illuminate\Http\Request;
+
+if( !function_exists('registerApiDomainRoutes') ) {
+    function registerApiDomainRoutes(string $domain, string $name, ?string $path = null)
+    {
+        $apiRoute = $path ? $path : "app/Domain/$domain/Http/Routes/Api.php";
+        return Route::middleware('api')
+            ->prefix('api')
+            ->name($name)
+            ->group(base_path($apiRoute));
+    }
+}
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        then: function() {
+            registerApiDomainRoutes('Auth', 'auth');
+            registerApiDomainRoutes('Users', 'users');
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
@@ -21,15 +36,25 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function(Exceptions $exceptions) {
         $exceptions->render(function(AuthenticationException $e, Request $request) {
             return response()->json([
-                'result' => false,
-                'message' => 'Not Authenticated :('
+                'result' => 'error',
+                'message' => 'Not Authenticated',
+                'info' => env('APP_DEBUG', false) ? $e->getMessage() : null,
             ], 401);
         });
         $exceptions->render(function(NotFoundHttpException $e, Request $request) {
             return response()->json([
-                'result' => false,
-                'message' => 'Resource Not Found :('
+                'result' => 'error',
+                'message' => 'Resource Not Found X(',
+                'info' => env('APP_DEBUG', false) ? $e->getMessage() : null,
             ], 404);
+        });
+        $exceptions->render(function(QueryException $e, Request $request) {
+            return response()->json([
+                'result' => 'error',
+                'message' => 'Database Error',
+                'info' => env('APP_DEBUG', false) ? $e->getMessage() : null,
+                'exception' => $e::class,
+            ], 500);
         });
     })
     ->create();
