@@ -27,9 +27,11 @@ class {{ class }} extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show({{ model }} ${{ modelVar }})
     {
-        //
+        return [
+            '{{ model }}' => ${{ modelVar }}
+        ];
     }
 
     /**

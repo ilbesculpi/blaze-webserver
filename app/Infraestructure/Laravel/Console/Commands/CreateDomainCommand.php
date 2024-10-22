@@ -163,10 +163,13 @@ class CreateDomainCommand extends GeneratorCommand
 
     protected function buildControllerReplacements()
     {
+        $domain = $this->getDomain();
+        $modelVar = Str::lcfirst($domain);
         return [
             '{{ namespace }}' => $this->getControllerNamespace(),
-            '{{ model }}' => $this->getDomain(),
+            '{{ model }}' => $domain,
             '{{ modelNamespace }}' => $this->getModelNamespace(),
+            '{{ modelVar }}' => $modelVar,
         ];
     }
 
