@@ -20,6 +20,9 @@ if( !function_exists('registerApiDomainRoutes') ) {
 }
 
 return Application::configure(basePath: dirname(__DIR__))
+    ->withCommands([
+        App\Infraestructure\Laravel\Console\Commands\CreateDomainCommand::class,
+    ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         api: __DIR__.'/../routes/api.php',
