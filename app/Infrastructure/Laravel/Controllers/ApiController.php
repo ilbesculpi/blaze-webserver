@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infraestructure\Laravel\Controllers;
+namespace App\Infrastructure\Laravel\Controllers;
 
 abstract class ApiController extends Controller
 {

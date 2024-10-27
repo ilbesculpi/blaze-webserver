@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infraestructure\Laravel\Console\Commands;
+namespace App\Infrastructure\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\GeneratorCommand;

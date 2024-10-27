@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infraestructure\Laravel\Exceptions;
+namespace App\Infrastructure\Laravel\Exceptions;
 
 class NotFoundException extends ApiException
 {
