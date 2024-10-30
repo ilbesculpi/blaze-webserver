@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Users\Http\Controllers\Api;
+namespace App\Infrastructure\Laravel\Controllers\Api;
 
 use App\Domain\Users\Models\User;
-use App\Infrastructure\Laravel\Controllers\ApiController;
+use App\Domain\Users\Repositories\UserRepository;
 use App\Infrastructure\Laravel\Exceptions\NotAuthorizedException;
 use App\Infrastructure\Laravel\Exceptions\NotImplementedException;
 use Illuminate\Http\Request;
@@ -18,7 +18,11 @@ class UserController extends ApiController
      */
     public function index()
     {
-        throw new NotImplementedException();
+        $repository = new UserRepository();
+        $users = $repository->getAllUsers();
+        return [
+            'users' => $users
+        ];
     }
 
     /**
