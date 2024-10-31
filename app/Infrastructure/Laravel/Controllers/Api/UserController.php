@@ -13,8 +13,7 @@ use Illuminate\Support\Str;
 class UserController extends ApiController
 {
 
-    public function __construct(UserRepository $userRepository) {
-        $this->userRepository = $userRepository;
+    public function __construct(protected UserRepository $repository) {
     }
 
     /**

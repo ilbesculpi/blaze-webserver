@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Domain\Users\Repositories\UserRepository;
 use App\Domain\Users\Services\UserService;
 
+
 class UserDomainProvider extends ServiceProvider
 {
     /**
@@ -13,7 +14,10 @@ class UserDomainProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserRespository::class, UserService::class);
+        $this->app->bind(
+            UserRepository::class,
+            UserService::class
+        );
     }
 
     /**
