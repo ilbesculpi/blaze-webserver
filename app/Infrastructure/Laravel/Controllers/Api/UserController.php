@@ -13,15 +13,17 @@ use Illuminate\Support\Str;
 class UserController extends ApiController
 {
 
+    public function __construct(UserRepository $userRepository) {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $repository = new UserRepository();
-        $users = $repository->getAllUsers();
         return [
-            'users' => $users
+            'users' => $this->repository->getUserList()
         ];
     }
 
