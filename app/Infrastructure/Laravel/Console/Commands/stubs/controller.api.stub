@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use {{ rootNamespace }}Infraestructure\Laravel\Controllers\ApiController;
+use {{ rootNamespace }}Infrastructure\Laravel\Controllers\ApiController;
 use Illuminate\Http\Request;
 use {{ modelNamespace }}\{{ model }};
 

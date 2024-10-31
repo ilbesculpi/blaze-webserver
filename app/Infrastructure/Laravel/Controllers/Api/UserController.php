@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Users\Http\Controllers\Api;
+namespace App\Infrastructure\Laravel\Controllers\Api;
 
 use App\Domain\Users\Models\User;
-use App\Infraestructure\Laravel\Controllers\ApiController;
-use App\Infraestructure\Laravel\Exceptions\NotAuthorizedException;
-use App\Infraestructure\Laravel\Exceptions\NotImplementedException;
+use App\Domain\Users\Repositories\UserRepository;
+use App\Infrastructure\Laravel\Exceptions\NotAuthorizedException;
+use App\Infrastructure\Laravel\Exceptions\NotImplementedException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -13,12 +13,17 @@ use Illuminate\Support\Str;
 class UserController extends ApiController
 {
 
+    public function __construct(protected UserRepository $repository) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        throw new NotImplementedException();
+        return [
+            'users' => $this->repository->getUserList()
+        ];
     }
 
     /**
