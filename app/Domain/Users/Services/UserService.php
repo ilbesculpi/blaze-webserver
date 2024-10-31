@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Users\Service;
+namespace App\Domain\Users\Services;
 
-use App\Domain\Users\Repositories;
+use App\Domain\Users\Repositories\UserRepository;
 use App\Domain\Users\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class UserService implements UserRepository
 {
