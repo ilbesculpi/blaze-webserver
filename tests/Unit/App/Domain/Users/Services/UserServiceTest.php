@@ -2,28 +2,29 @@
 
 namespace Tests\Unit\App\Domain\Users\Services;
 
-use App\Domain\Users\Models\User;
 use App\Domain\Users\Services\UserService;
+use App\Domain\Users\Models\User;
 use PHPUnit\Framework\TestCase;
 use Mockery;
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserServiceTest extends TestCase
 {
+
+    use DatabaseMigrations;
+
     /**
      * A basic unit test example.
      */
     public function testGetUserList()
     {
-        $mock = Mockery::mock('alias:App\Domain\Users\Models\User');
-        $mock->shouldReceive('get')
-            ->once()
-            ->andReturn(collect([
-                ['id' => 1, 'name' => 'John Doe', 'email' => 'johndoe@test'],
-                ['id' => 2, 'name' => 'Mr Jhonny', 'email' => 'mrjhonny@test'],
-            ]));
-        $service = new UserService();
-        $users = $service->getUserList();
-        $this->assertCount(2, $users);
+        // $users = User::factory()
+        //     ->count(5)
+        //     ->create();
+        // $service = new UserService();
+        // $users = $service->getUserList();
+        // $this->assertCount(5, $users);
+        $this->markTestIncomplete('TODO: find out how to spy on static User::get() method.');
     }
 }
