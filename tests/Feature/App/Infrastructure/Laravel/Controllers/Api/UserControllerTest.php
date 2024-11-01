@@ -1,35 +1,32 @@
 <?php
 
-namespace Tests\Feature\App\Infrastructure\Laravel\Controllers\Api;
-
 use App\Domain\Users\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Domain\Users\Services\UserService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
-use Database\Factories\UserFactory;
-// use Mockery;
+use Tests\TestCase;
 
-class UserControllerTest extends TestCase
-{
-    use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-    public function test_get_api_users(): void
-    {
+uses(RefreshDatabase::class);
 
-        $users = User::factory()
-            ->count(5)
-            ->create();
+describe('Api::UserController', function () {
 
-        Sanctum::actingAs(
-            $users->first(),
-            ['management']
-        );
+    describe('GET /api/users', function () {
 
-        $response = $this->getJson("/api/users");
-        $response->assertOk();
-        $this->assertCount(5, $response['users']);
-    }
-}
+        it('should retrieve the user list', function () {
+            $users = User::factory()
+                ->count(5)
+                ->create();
+
+            Sanctum::actingAs(
+                $users->first(),
+                ['management']
+            );
+
+            $response = $this->getJson("/api/users");
+            $response->assertOk();
+            expect($response['users'])->toHaveCount(5);
+        });
+
+    });
+
+});
