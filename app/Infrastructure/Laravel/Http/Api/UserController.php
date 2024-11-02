@@ -1,14 +1,19 @@
 <?php
 
-namespace App\Infrastructure\Laravel\Controllers\Api;
+namespace App\Infrastructure\Laravel\Http\Api;
 
 use App\Domain\Users\Models\User;
 use App\Domain\Users\Repositories\UserRepository;
+use App\Domain\Users\Requests\CreateUserRequest;
+use App\Domain\Users\UseCases\CreateUserAccount;
+use App\Infrastructure\Laravel\Exceptions\BadRequestException;
 use App\Infrastructure\Laravel\Exceptions\NotAuthorizedException;
 use App\Infrastructure\Laravel\Exceptions\NotImplementedException;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use PDOException;
 
 class UserController extends ApiController
 {
@@ -31,23 +36,33 @@ class UserController extends ApiController
      */
     public function store(Request $request)
     {
-        if( !$request->user()->tokenCan('create_users') ) {
-            throw new NotAuthorizedException();
+        // if( !$request->user()->tokenCan('create_users') ) {
+        //     throw new NotAuthorizedException();
+        // }
+        try {
+            $request = new CreateUserRequest(
+                $request->input('name'),
+                $request->input('email'),
+                $request->input('password'),
+                $request->input('role'),
+            );
+            $useCase = new CreateUserAccount($this->repository);
+            $user = $useCase->execute($request);
+        }
+        catch (BadRequestException $e) {
+        }
+        catch (NotAuthorizedException $e) {
+        }
+        catch (PDOException $e) {
         }
 
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'role' => 'required',
-        ]);
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required',
+        //     'role' => 'required',
+        // ]);
 
-        $user = User::create([
-            'id' => Str::ulid(),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'role' => $request->input('role'),
-        ]);
+
 
         return [
             'user' => $user

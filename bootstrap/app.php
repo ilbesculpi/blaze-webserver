@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 if( !function_exists('registerApiDomainRoutes') ) {
     function registerApiDomainRoutes(string $name, ?string $path = null)
     {
-        $apiRoute = $path ? $path : "app/Infrastructure/Laravel/Routes/{$name}.php";
+        $apiRoute = $path ? $path : "app/Infrastructure/Laravel/Http/Routes/{$name}.php";
         return Route::middleware('api')
             ->prefix('api')
             ->name($name)
