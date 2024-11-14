@@ -22,7 +22,7 @@ class UserController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of users.
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class UserController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new User account.
      */
     public function store(Request $request)
     {
@@ -70,7 +70,7 @@ class UserController extends ApiController
     }
 
     /**
-     * Display the specified resource.
+     * Retrieve a given user.
      */
     public function show(Request $request, User $user)
     {
