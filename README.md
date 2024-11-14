@@ -1,9 +1,9 @@
-<p align="center"><a href="https://github.com/ilbesculpi" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://github.com/ilbesculpi/blaze-webserver" target="_blank"><img src="https://github.com/ilbesculpi/blaze-webserver/blob/develop/public/img/logo.png?raw=true" width="400" alt="Micondominio Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/ilbesculpi"><img src="https://img.shields.io/badge/version-0.1.0-blue"></a>
-<a href="https://github.com/ilbesculpi"><img src="https://img.shields.io/badge/status-development-orange" alt="Status"></a>
-<a href="https://github.com/ilbesculpi"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+<a href="https://github.com/ilbesculpi/blaze-webserver"><img src="https://img.shields.io/badge/version-0.1.0-blue"></a>
+<a href="https://github.com/ilbesculpi/blaze-webserver"><img src="https://img.shields.io/badge/status-development-orange" alt="Status"></a>
+<a href="https://github.com/ilbesculpi/blaze-webserver"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
 </p>
 
 ## App Administración de Condominios (Blaze)
