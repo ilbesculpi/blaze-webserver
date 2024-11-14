@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Laravel\Controllers\Api;
+namespace App\Infrastructure\Laravel\Http\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

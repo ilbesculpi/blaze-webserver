@@ -4,10 +4,12 @@ namespace App\Domain\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Laravel\Sanctum\HasApiTokens;
+use Database\Factories\UserFactory;
 
 class User extends Authenticatable
 {
@@ -35,6 +37,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected static function newFactory() : Factory
+    {
+        return UserFactory::new();
+    }
 
     /**
      * Get the attributes that should be cast.

@@ -10,8 +10,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use App\Infrastructure\Laravel\Controllers\Api\UserController;
-use App\Domain\Users\Models\User;
+use App\Infrastructure\Laravel\Http\Api\UserController;
 
 Route::apiResource('users', UserController::class)
     ->middleware('auth:sanctum');
